@@ -22,9 +22,9 @@ let tst2cpp tstPath device =
 
   for line in File.ReadLines(tstPath) do
     let line = line.Trim().TrimEnd([| ','; ';' |])
-    match line.Split() |> Array.toList with
+    match line.Split((null : char[]), StringSplitOptions.RemoveEmptyEntries) |> Array.toList with
     | "//" :: _ -> ()
-    | [""] -> sb.AppendLine("") |> ignore
+    | [] -> sb.AppendLine("") |> ignore
     | ["load"; _] -> ()
     | ["output-file"; _] -> ()
     | ["compare-to"; _] -> ()
@@ -43,7 +43,7 @@ let tst2cpp tstPath device =
           output.Fmts.Add($"""{String.replicate l " "}%%0{bits}b{String.replicate r " "}""")
           output.Vars.Add($"device->{var}")
     | ["set"; var; value]
-    | "set" :: var :: value :: "" :: "//" :: _ ->
+    | "set" :: var :: value :: "//" :: _ ->
         let value = value.Replace("%B", "0b").TrimEnd(',')
         sb.AppendLine($"\tdevice->{var} = {value};") |> ignore
     | ["eval"] -> sb.AppendLine("\tdevice->eval();") |> ignore
