@@ -1,0 +1,37 @@
+#include "VNot16.h"
+
+void output(VNot16* device) {
+	printf("| %016b | %016b |\n", device->in, device->out);
+}
+
+int main() {
+	auto device = new VNot16;
+
+	printf("|        in        |       out        |\n");
+
+
+
+	device->in = 0b0000000000000000;
+	device->eval();
+	output(device);
+
+	device->in = 0b1111111111111111;
+	device->eval();
+	output(device);
+
+	device->in = 0b1010101010101010;
+	device->eval();
+	output(device);
+
+	device->in = 0b0011110011000011;
+	device->eval();
+	output(device);
+
+	device->in = 0b0001001000110100;
+	device->eval();
+	output(device);
+
+
+	delete device;
+	return 0;
+}

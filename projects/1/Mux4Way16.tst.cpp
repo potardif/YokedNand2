@@ -1,0 +1,57 @@
+#include "VMux4Way16.h"
+
+void output(VMux4Way16* device) {
+	printf("| %016b | %016b | %016b | %016b |  %02b  | %016b |\n", device->a, device->b, device->c, device->d, device->sel, device->out);
+}
+
+int main() {
+	auto device = new VMux4Way16;
+
+	printf("|        a         |        b         |        c         |        d         | sel  |       out        |\n");
+
+
+
+	device->a = 0;
+	device->b = 0;
+	device->c = 0;
+	device->d = 0;
+	device->sel = 0;
+	device->eval();
+	output(device);
+
+	device->sel = 1;
+	device->eval();
+	output(device);
+
+	device->sel = 2;
+	device->eval();
+	output(device);
+
+	device->sel = 3;
+	device->eval();
+	output(device);
+
+	device->a = 0b0001001000110100;
+	device->b = 0b1001100001110110;
+	device->c = 0b1010101010101010;
+	device->d = 0b0101010101010101;
+	device->sel = 0;
+	device->eval();
+	output(device);
+
+	device->sel = 1;
+	device->eval();
+	output(device);
+
+	device->sel = 2;
+	device->eval();
+	output(device);
+
+	device->sel = 3;
+	device->eval();
+	output(device);
+
+
+	delete device;
+	return 0;
+}
