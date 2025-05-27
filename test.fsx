@@ -42,8 +42,9 @@ let tst2cpp tstPath device =
           output.Headers.Add(center var (l + bits + r))
           output.Fmts.Add($"""{String.replicate l " "}%%0{bits}b{String.replicate r " "}""")
           output.Vars.Add($"device->{var}")
-    | ["set"; var; value] ->
-        let value = value.Replace("%B", "0b")
+    | ["set"; var; value]
+    | "set" :: var :: value :: "" :: "//" :: _ ->
+        let value = value.Replace("%B", "0b").TrimEnd(',')
         sb.AppendLine($"\tdevice->{var} = {value};") |> ignore
     | ["eval"] -> sb.AppendLine("\tdevice->eval();") |> ignore
     | ["output"] -> sb.AppendLine("\toutput(device);") |> ignore
