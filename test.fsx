@@ -7,6 +7,7 @@ open System.IO
 open System.Text
 
 let center (s : string) (n : int) =
+  let s = s.[.. n - 1]
   let l = (n - s.Length) / 2
   let r = n - l - s.Length
   $"""{String.replicate l " "}{s}{String.replicate r " "}"""
@@ -117,7 +118,7 @@ let run device =
 
 let () =
   let getProjectFolder i = Path.Combine("projects", $"{i}")
-  for project in 1 .. 1 do
+  for project in 1 .. 2 do
     let projectFolder = getProjectFolder project
     for svPath in Directory.EnumerateFiles(projectFolder, "*.sv") do
       let device = Path.GetFileNameWithoutExtension(svPath)
