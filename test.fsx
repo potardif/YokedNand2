@@ -44,7 +44,7 @@ let tst2cpp tstPath device =
           output.Vars.Add($"device->{var}")
     | ["set"; var; value]
     | "set" :: var :: value :: "//" :: _ ->
-        let value = value.Replace("%B", "0b").TrimEnd(',')
+        let value = value.Replace("%B", "0b").TrimEnd([| ','; ';' |])
         sb.AppendLine($"\tdevice->{var} = {value};") |> ignore
     | ["eval"] -> sb.AppendLine("\tdevice->eval();") |> ignore
     | ["output"] -> sb.AppendLine("\toutput(device);") |> ignore
@@ -76,9 +76,10 @@ let printCmd (si : ProcessStartInfo) =
   tokens.AddRange(si.ArgumentList)
   printfn $"{String.Join(' ', tokens)}"
 
-let build cppPath svPath includePaths =
+let build cppPath svPath includePaths exeName =
   let si = ProcessStartInfo()
   si.FileName <- "verilator"
+  si.RedirectStandardOutput <- true
 
   // https://verilator.org/guide/latest/example_cc.html
   for arg in [|
@@ -87,6 +88,7 @@ let build cppPath svPath includePaths =
     "--build" // Verilator will call make instead of us.
     "-j"; "0" // Use all available cores for building.
     "-Wall" // Enable all Verilator warnings.
+    "-o"; exeName
     cppPath
     svPath
   |] do
@@ -103,9 +105,9 @@ let build cppPath svPath includePaths =
   if proc.ExitCode <> 0 then
     failwith $"{proc.ExitCode}"
 
-let run device =
+let run exeName =
   let si = ProcessStartInfo()
-  si.FileName <- $"obj_dir/V{device}"
+  si.FileName <- $"obj_dir/{exeName}"
   si.RedirectStandardOutput <- true
 
   let proc = new Process()
@@ -124,16 +126,24 @@ let () =
     for svPath in Directory.EnumerateFiles(projectFolder, "*.sv") do
       let device = Path.GetFileNameWithoutExtension(svPath)
 
-      let tstPath = Path.Combine(projectFolder, $"{device}.tst")
-      let cpp = tst2cpp tstPath device
-      let cppPath = $"{tstPath}.cpp"
-      File.WriteAllText(cppPath, cpp)
+      let tstPaths = List()
+      tstPaths.Add(Path.Combine(projectFolder, $"{device}.tst"))
+      if device = "ALU" then
+        tstPaths.Add(Path.Combine(projectFolder, $"ALU-basic.tst"))
 
-      let includePaths = [| for i in 1 .. project -> getProjectFolder i |]
-      build cppPath svPath includePaths
+      for tstPath in tstPaths do
+        let tstName = Path.GetFileNameWithoutExtension(tstPath)
 
-      let actualOutput = run device
-      let cmpPath = Path.Combine(projectFolder, $"{device}.cmp")
-      let expectedOutput = File.ReadAllText(cmpPath)
-      if actualOutput <> expectedOutput then
-        failwith $"Expected\n{expectedOutput}Got\n{actualOutput}"
+        let cpp = tst2cpp tstPath device
+        let cppPath = $"{tstPath}.cpp"
+        File.WriteAllText(cppPath, cpp)
+
+        let includePaths = [| for i in 1 .. project -> getProjectFolder i |]
+        let exeName = $"V{tstName}"
+        build cppPath svPath includePaths exeName
+
+        let actualOutput = run exeName
+        let cmpPath = Path.Combine(projectFolder, $"{tstName}.cmp")
+        let expectedOutput = File.ReadAllText(cmpPath)
+        if actualOutput <> expectedOutput then
+          failwith $"Expected\n{expectedOutput}Got\n{actualOutput}"
