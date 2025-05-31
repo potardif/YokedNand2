@@ -138,7 +138,7 @@ let run exeName =
 
 let () =
   let getProjectFolder i = Path.Combine("projects", $"{i}")
-  for project in 1 .. 2 do
+  for project in 1 .. 3 do
     let projectFolder = getProjectFolder project
     for svPath in Directory.EnumerateFiles(projectFolder, "*.sv") do
       let device = Path.GetFileNameWithoutExtension(svPath)
