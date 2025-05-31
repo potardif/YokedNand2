@@ -11,7 +11,7 @@ std::string fmt_time() {
 }
 
 void output(VDFF* device) {
-	printf("|%s| %b | %b |\n", fmt_time().c_str(), device->in, device->out);
+	printf("|%s| %01b | %01b |\n", fmt_time().c_str(), device->in, device->out);
 }
 
 int main() {

@@ -11,7 +11,7 @@ std::string fmt_time() {
 }
 
 void output(VBit* device) {
-	printf("|%s| %b | %01b  | %b |\n", fmt_time().c_str(), device->in, device->load, device->out);
+	printf("|%s| %01b | %01b  | %01b |\n", fmt_time().c_str(), device->in, device->load, device->out);
 }
 
 int main() {

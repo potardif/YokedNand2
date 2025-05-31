@@ -33,7 +33,7 @@ let tst2cpp tstPath device =
           match col.Split('%') with
           | [| var |] ->
               output.Headers.Add(center var 3)
-              output.Fmts.Add(" %b ")
+              output.Fmts.Add(" %01b ")
               output.Vars.Add($"device->{var}")
           | [| "time"; "S1.4.1" |] ->
               output.Headers.Add(center "time" 6)
