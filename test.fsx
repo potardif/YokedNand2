@@ -30,29 +30,46 @@ let tst2cpp tstPath device =
     | ["compare-to"; _] -> ()
     | "output-list" :: cols ->
         for col in cols do
-          let (var, l, bits, r) =
-            match col.Split('%') with
-            | [| var |] -> (var, 1, 1, 1)
-            | [| var; fmt |] ->
-                match fmt.TrimStart('B').Split('.') |> Array.map int with
-                | [| l; bits; r |] -> (var, l, bits, r)
-                | _ -> raise (NotImplementedException(fmt))
-            | _ -> raise (NotImplementedException(col))
-          
-          output.Headers.Add(center var (l + bits + r))
-          output.Fmts.Add($"""{String.replicate l " "}%%0{bits}b{String.replicate r " "}""")
-          output.Vars.Add($"device->{var}")
+          match col.Split('%') with
+          | [| var |] ->
+              output.Headers.Add(center var 3)
+              output.Fmts.Add(" %b ")
+              output.Vars.Add($"device->{var}")
+          | [| "time"; "S1.4.1" |] ->
+              output.Headers.Add(center "time" 6)
+              output.Fmts.Add("%s")
+              output.Vars.Add("fmt_time().c_str()")
+          | [| var; fmt |] ->
+              match fmt.TrimStart('B').Split('.') |> Array.map int with
+              | [| l; bits; r |] ->
+                  output.Headers.Add(center var (l + bits + r))
+                  output.Fmts.Add($"""{String.replicate l " "}%%0{bits}b{String.replicate r " "}""")
+                  output.Vars.Add($"device->{var}")
+              | _ -> raise (NotImplementedException(fmt))
+          | _ -> raise (NotImplementedException(col))
     | ["set"; var; value]
     | "set" :: var :: value :: "//" :: _ ->
         let value = value.Replace("%B", "0b").TrimEnd([| ','; ';' |])
         sb.AppendLine($"\tdevice->{var} = {value};") |> ignore
     | ["eval"] -> sb.AppendLine("\tdevice->eval();") |> ignore
     | ["output"] -> sb.AppendLine("\toutput(device);") |> ignore
+    | ["tick"] -> sb.AppendLine("\tdevice->clk = 0; ++time_; device->eval(); // tick") |> ignore
+    | ["tock"] -> sb.AppendLine("\tdevice->clk = 1; ++time_; device->eval(); // tock") |> ignore
     | tokens -> raise (NotImplementedException($"%A{tokens}"))
 
   let className = $"V{device}"
 
   $$"""#include "{{ className }}.h"
+
+int time_ = 0;
+
+std::string fmt_time() {
+	std::string s = ' ' + std::to_string(time_ / 2);
+	if (time_ % 2 == 1)
+		s += '+';
+	s.append(6 - s.length(), ' ');
+	return s;
+}
 
 void output({{ className }}* device) {
 	printf("|{{ String.Join("|", output.Fmts) }}|\n", {{ String.Join(", ", output.Vars) }});
