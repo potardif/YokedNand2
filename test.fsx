@@ -35,10 +35,15 @@ let tst2cpp tstPath device =
               output.Headers.Add(center var 3)
               output.Fmts.Add(" %01b ")
               output.Vars.Add($"device->{var}")
-          | [| "time"; "S1.4.1" |] ->
-              output.Headers.Add(center "time" 6)
+          | [| "time"; fmt |] ->
+              let totalLength =
+                match fmt with
+                | "S1.3.1" -> 1 + 3 + 1
+                | "S1.4.1" -> 1 + 4 + 1
+                | _ -> raise (NotImplementedException(fmt))
+              output.Headers.Add(center "time" totalLength)
               output.Fmts.Add("%s")
-              output.Vars.Add("fmt_time().c_str()")
+              output.Vars.Add($"fmt_time({totalLength}).c_str()")
           | [| var; fmt |] ->
               match fmt.TrimStart('B').Split('.') |> Array.map int with
               | [| l; bits; r |] ->
@@ -63,11 +68,11 @@ let tst2cpp tstPath device =
 
 int time_ = 0;
 
-std::string fmt_time() {
+std::string fmt_time(int total_length) {
 	std::string s = ' ' + std::to_string(time_ / 2);
 	if (time_ % 2 == 1)
 		s += '+';
-	s.append(6 - s.length(), ' ');
+	s.append(total_length - s.length(), ' ');
 	return s;
 }
 

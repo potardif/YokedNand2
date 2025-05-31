@@ -2,16 +2,16 @@
 
 int time_ = 0;
 
-std::string fmt_time() {
+std::string fmt_time(int total_length) {
 	std::string s = ' ' + std::to_string(time_ / 2);
 	if (time_ % 2 == 1)
 		s += '+';
-	s.append(6 - s.length(), ' ');
+	s.append(total_length - s.length(), ' ');
 	return s;
 }
 
 void output(VDFF* device) {
-	printf("|%s| %01b | %01b |\n", fmt_time().c_str(), device->in, device->out);
+	printf("|%s| %01b | %01b |\n", fmt_time(6).c_str(), device->in, device->out);
 }
 
 int main() {
