@@ -1,5 +1,15 @@
 #include "VMux4Way16.h"
 
+int time_ = 0;
+
+std::string fmt_time() {
+	std::string s = ' ' + std::to_string(time_ / 2);
+	if (time_ % 2 == 1)
+		s += '+';
+	s.append(6 - s.length(), ' ');
+	return s;
+}
+
 void output(VMux4Way16* device) {
 	printf("| %016b | %016b | %016b | %016b |  %02b  | %016b |\n", device->a, device->b, device->c, device->d, device->sel, device->out);
 }
