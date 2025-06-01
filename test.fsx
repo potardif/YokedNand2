@@ -45,11 +45,23 @@ let tst2cpp tstPath device =
               output.Fmts.Add("%s")
               output.Vars.Add($"fmt_time({totalLength}).c_str()")
           | [| var; fmt |] ->
-              match fmt.TrimStart('B').Split('.') |> Array.map int with
-              | [| l; bits; r |] ->
-                  output.Headers.Add(center var (l + bits + r))
-                  output.Fmts.Add($"""{String.replicate l " "}%%0{bits}b{String.replicate r " "}""")
-                  output.Vars.Add($"device->{var}")
+              let paddingChar =
+                match fmt.[0] with
+                | 'B' ->
+                    output.Vars.Add($"device->{var}")
+                    "0"
+                | 'D' ->
+                    output.Vars.Add($"static_cast<int16_t>(device->{var})")
+                    ""
+                | _ -> raise (NotImplementedException(fmt))
+              match fmt.[1 ..].Split('.') |> Array.map int with
+              | [| l; chars; r |] ->
+                  output.Headers.Add(center var (l + chars + r))
+
+                  let lPad = String.replicate l " "
+                  let rPad = String.replicate r " "
+                  let fmtType = Char.ToLower(fmt.[0])
+                  output.Fmts.Add($"{lPad}%%{paddingChar}{chars}{fmtType}{rPad}")
               | _ -> raise (NotImplementedException(fmt))
           | _ -> raise (NotImplementedException(col))
     | ["set"; var; value]
