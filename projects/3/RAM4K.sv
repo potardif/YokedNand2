@@ -19,6 +19,10 @@ module RAM4K(
 	assign out = mem[address];
 
 	/*
+	// This is how I tried to implement RAM4K using eight RAM512s, staying in the spirit of the
+	// book. Unfortunately, it takes way too much time to build and I never managed to do it. So
+	// this code is untested and only works in theory.
+
 	logic loads [0:7];
 	DMux8Way dmux(
 		.in(load),
@@ -35,7 +39,7 @@ module RAM4K(
 
 	logic [msb:lsb] register_outs [0:7];
 	for (genvar i = 0; i <= 7; ++i)
-	begin : ram8_loop
+	begin : ram512_loop
 		RAM512 ram512(
 			.clk(clk),
 			.in(in),

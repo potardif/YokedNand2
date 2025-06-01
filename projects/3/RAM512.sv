@@ -24,7 +24,7 @@ module RAM512(
 
 	logic [msb:lsb] register_outs [0:7];
 	for (genvar i = 0; i <= 7; ++i)
-	begin : ram8_loop
+	begin : ram64_loop
 		RAM64 ram64(
 			.clk(clk),
 			.in(in),
