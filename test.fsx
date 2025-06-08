@@ -119,7 +119,7 @@ std::string fmt_time(int total_length) {
 	return s;
 }
 {{ fmt_outM }}
-void output({{ className }}* device) {
+void output(const {{ className }}* device) {
 	printf("|{{ String.Join("|", output.Fmts) }}|\n", {{ String.Join(", ", output.Vars) }});
 }
 

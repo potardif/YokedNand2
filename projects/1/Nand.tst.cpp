@@ -10,7 +10,7 @@ std::string fmt_time(int total_length) {
 	return s;
 }
 
-void output(VNand* device) {
+void output(const VNand* device) {
 	printf("| %01b | %01b | %01b |\n", device->a, device->b, device->out);
 }
 

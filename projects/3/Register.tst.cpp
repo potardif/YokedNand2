@@ -10,7 +10,7 @@ std::string fmt_time(int total_length) {
 	return s;
 }
 
-void output(VRegister* device) {
+void output(const VRegister* device) {
 	printf("|%s| %6d |  %01b | %6d |\n", fmt_time(5).c_str(), static_cast<int16_t>(device->in), device->load, static_cast<int16_t>(device->out));
 }
 

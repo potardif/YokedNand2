@@ -10,7 +10,7 @@ std::string fmt_time(int total_length) {
 	return s;
 }
 
-void output(VOr8Way* device) {
+void output(const VOr8Way* device) {
 	printf("|  %08b  | %01b |\n", device->in, device->out);
 }
 

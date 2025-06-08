@@ -10,7 +10,7 @@ std::string fmt_time(int total_length) {
 	return s;
 }
 
-void output(VRAM64* device) {
+void output(const VRAM64* device) {
 	printf("|%s| %6d |  %01b |  %3d  | %6d |\n", fmt_time(5).c_str(), static_cast<int16_t>(device->in), device->load, static_cast<int16_t>(device->address), static_cast<int16_t>(device->out));
 }
 

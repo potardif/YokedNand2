@@ -10,7 +10,7 @@ std::string fmt_time(int total_length) {
 	return s;
 }
 
-void output(VHalfAdder* device) {
+void output(const VHalfAdder* device) {
 	printf("| %01b | %01b | %01b | %01b |\n", device->a, device->b, device->sum, device->carry);
 }
 

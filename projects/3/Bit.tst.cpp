@@ -10,7 +10,7 @@ std::string fmt_time(int total_length) {
 	return s;
 }
 
-void output(VBit* device) {
+void output(const VBit* device) {
 	printf("|%s| %01b | %01b  | %01b |\n", fmt_time(6).c_str(), device->in, device->load, device->out);
 }
 

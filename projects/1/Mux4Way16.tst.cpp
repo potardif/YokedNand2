@@ -10,7 +10,7 @@ std::string fmt_time(int total_length) {
 	return s;
 }
 
-void output(VMux4Way16* device) {
+void output(const VMux4Way16* device) {
 	printf("| %016b | %016b | %016b | %016b |  %02b  | %016b |\n", device->a, device->b, device->c, device->d, device->sel, device->out);
 }
 

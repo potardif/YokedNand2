@@ -10,7 +10,7 @@ std::string fmt_time(int total_length) {
 	return s;
 }
 
-void output(VALU* device) {
+void output(const VALU* device) {
 	printf("| %016b | %016b | %01b | %01b | %01b | %01b | %01b | %01b | %016b | %01b | %01b |\n", device->x, device->y, device->zx, device->nx, device->zy, device->ny, device->f, device->no, device->out, device->zr, device->ng);
 }
 

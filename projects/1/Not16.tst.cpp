@@ -10,7 +10,7 @@ std::string fmt_time(int total_length) {
 	return s;
 }
 
-void output(VNot16* device) {
+void output(const VNot16* device) {
 	printf("| %016b | %016b |\n", device->in, device->out);
 }
 

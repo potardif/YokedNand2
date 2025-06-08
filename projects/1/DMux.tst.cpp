@@ -10,7 +10,7 @@ std::string fmt_time(int total_length) {
 	return s;
 }
 
-void output(VDMux* device) {
+void output(const VDMux* device) {
 	printf("| %01b | %01b | %01b | %01b |\n", device->in, device->sel, device->a, device->b);
 }
 
