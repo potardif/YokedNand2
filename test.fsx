@@ -197,9 +197,12 @@ let () =
           tstPaths.Add(Path.Combine(projectFolder, $"{device}.tst"))
           tstPaths.Add(Path.Combine(projectFolder, $"ALU-basic.tst"))
       | "CPU" ->
-          // CPU.tst is deliberately ignored for the moment because it is exactly the same test as
+          // CPU.tst is deliberately ignored because it is exactly the same test as
           // CPU-external.tst, but it also tests the value of the D register which is a nonsense in
-          // my opinion because it is not exposed in the output pins.
+          // my opinion because it is not exposed in the output pins. And you can't just expose it
+          // in the output pins to pass the test, because the test seems to expect the value of D
+          // before it even propagates to its output, which starts becoming a philosophical
+          // question: What is the value of a register if not its output?
           tstPaths.Add(Path.Combine(projectFolder, $"CPU-external.tst"))
       | _ -> tstPaths.Add(Path.Combine(projectFolder, $"{device}.tst"))
 
