@@ -2,6 +2,8 @@
 
 
 
+
+
 void output(const VDMux8Way* device) {
 	printf("| %01b |  %03b  | %01b | %01b | %01b | %01b | %01b | %01b | %01b | %01b |\n", device->in, device->sel, device->a, device->b, device->c, device->d, device->e, device->f, device->g, device->h);
 }

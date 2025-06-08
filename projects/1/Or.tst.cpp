@@ -2,6 +2,8 @@
 
 
 
+
+
 void output(const VOr* device) {
 	printf("| %01b | %01b | %01b |\n", device->a, device->b, device->out);
 }

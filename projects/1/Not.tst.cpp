@@ -2,6 +2,8 @@
 
 
 
+
+
 void output(const VNot* device) {
 	printf("| %01b | %01b |\n", device->in, device->out);
 }

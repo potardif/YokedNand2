@@ -2,6 +2,8 @@
 
 
 
+
+
 void output(const VMux8Way16* device) {
 	printf("| %016b | %016b | %016b | %016b | %016b | %016b | %016b | %016b |  %03b  | %016b |\n", device->a, device->b, device->c, device->d, device->e, device->f, device->g, device->h, device->sel, device->out);
 }

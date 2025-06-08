@@ -2,6 +2,8 @@
 
 
 
+
+
 void output(const VInc16* device) {
 	printf("| %016b | %016b |\n", device->in, device->out);
 }

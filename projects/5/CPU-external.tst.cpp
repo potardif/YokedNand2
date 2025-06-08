@@ -1,5 +1,6 @@
 #include "VCPU.h"
 
+
 int time_ = 0;
 
 std::string fmt_time(int total_length) {
@@ -9,6 +10,8 @@ std::string fmt_time(int total_length) {
 	s.append(total_length - s.length(), ' ');
 	return s;
 }
+
+
 
 std::string fmt_outM(const VCPU* device) {
 	if (!device->writeM)
@@ -21,6 +24,7 @@ std::string fmt_outM(const VCPU* device) {
 
 	return left + right;
 }
+
 
 void output(const VCPU* device) {
 	printf("|%s|%6d|%016b|  %01b  |%s|   %01b  | %5d |%5d|\n", fmt_time(5).c_str(), static_cast<int16_t>(device->inM), device->instruction, device->reset, fmt_outM(device).c_str(), device->writeM, static_cast<int16_t>(device->addressM), static_cast<int16_t>(device->pc));

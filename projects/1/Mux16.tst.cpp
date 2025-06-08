@@ -2,6 +2,8 @@
 
 
 
+
+
 void output(const VMux16* device) {
 	printf("| %016b | %016b | %01b | %016b |\n", device->a, device->b, device->sel, device->out);
 }

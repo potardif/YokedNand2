@@ -93,7 +93,8 @@ let tst2cpp tstPath device =
   let className = $"V{device}"
 
   let timeFunctions =
-    if hasTime then $$"""int time_ = 0;
+    if hasTime then $$"""
+int time_ = 0;
 
 std::string fmt_time(int total_length) {
 	std::string s = ' ' + std::to_string(time_ / 2);
@@ -101,7 +102,8 @@ std::string fmt_time(int total_length) {
 		s += '+';
 	s.append(total_length - s.length(), ' ');
 	return s;
-}"""
+}
+"""
     else ""
 
   let fmt_outM =
@@ -123,7 +125,9 @@ std::string fmt_outM(const {{ className }}* device) {
   $$"""#include "{{ className }}.h"
 
 {{ timeFunctions }}
+
 {{ fmt_outM }}
+
 void output(const {{ className }}* device) {
 	printf("|{{ String.Join("|", output.Fmts) }}|\n", {{ String.Join(", ", output.Vars) }});
 }

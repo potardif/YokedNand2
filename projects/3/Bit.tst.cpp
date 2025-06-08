@@ -1,5 +1,6 @@
 #include "VBit.h"
 
+
 int time_ = 0;
 
 std::string fmt_time(int total_length) {
@@ -9,6 +10,9 @@ std::string fmt_time(int total_length) {
 	s.append(total_length - s.length(), ' ');
 	return s;
 }
+
+
+
 
 void output(const VBit* device) {
 	printf("|%s| %01b | %01b  | %01b |\n", fmt_time(6).c_str(), device->in, device->load, device->out);

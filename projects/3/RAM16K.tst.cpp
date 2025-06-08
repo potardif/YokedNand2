@@ -1,5 +1,6 @@
 #include "VRAM16K.h"
 
+
 int time_ = 0;
 
 std::string fmt_time(int total_length) {
@@ -9,6 +10,9 @@ std::string fmt_time(int total_length) {
 	s.append(total_length - s.length(), ' ');
 	return s;
 }
+
+
+
 
 void output(const VRAM16K* device) {
 	printf("|%s| %6d |  %01b |  %5d  | %6d |\n", fmt_time(5).c_str(), static_cast<int16_t>(device->in), device->load, static_cast<int16_t>(device->address), static_cast<int16_t>(device->out));

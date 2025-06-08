@@ -2,6 +2,8 @@
 
 
 
+
+
 void output(const VHalfAdder* device) {
 	printf("| %01b | %01b | %01b | %01b |\n", device->a, device->b, device->sum, device->carry);
 }
