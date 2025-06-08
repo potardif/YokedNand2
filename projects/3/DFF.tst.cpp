@@ -3,6 +3,18 @@
 
 int time_ = 0;
 
+void tick(VDFF* device) {
+	device->clk = 0;
+	++time_;
+	device->eval();
+}
+
+void tock(VDFF* device) {
+	device->clk = 1;
+	++time_;
+	device->eval();
+}
+
 std::string fmt_time(int total_length) {
 	std::string s = ' ' + std::to_string(time_ / 2);
 	if (time_ % 2 == 1)
@@ -28,20 +40,20 @@ int main() {
 	output(device);
 
 	device->in = 1;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 0;
 	device->eval();
 	output(device);
 
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 

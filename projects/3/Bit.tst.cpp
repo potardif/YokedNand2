@@ -3,6 +3,18 @@
 
 int time_ = 0;
 
+void tick(VBit* device) {
+	device->clk = 0;
+	++time_;
+	device->eval();
+}
+
+void tock(VBit* device) {
+	device->clk = 1;
+	++time_;
+	device->eval();
+}
+
 std::string fmt_time(int total_length) {
 	std::string s = ' ' + std::to_string(time_ / 2);
 	if (time_ % 2 == 1)
@@ -27,858 +39,858 @@ int main() {
 
 	device->in = 0;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 1;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 1;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 0;
 	device->load = 1;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 1;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 0;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
-	device->in = 0;
+	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 0;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 0;
 	device->load = 1;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 1;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 0;
+	device->load = 1;
+	tick(device);
+	output(device);
+
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
-	output(device);
-
-	device->in = 1;
-	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
-	output(device);
-
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 1;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
+	output(device);
+
+	device->in = 1;
+	device->load = 0;
+	tick(device);
+	output(device);
+
+	tock(device);
 	output(device);
 
 

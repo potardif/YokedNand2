@@ -3,6 +3,18 @@
 
 int time_ = 0;
 
+void tick(VPC* device) {
+	device->clk = 0;
+	++time_;
+	device->eval();
+}
+
+void tock(VPC* device) {
+	device->clk = 1;
+	++time_;
+	device->eval();
+}
+
 std::string fmt_time(int total_length) {
 	std::string s = ' ' + std::to_string(time_ / 2);
 	if (time_ % 2 == 1)
@@ -29,116 +41,116 @@ int main() {
 	device->reset = 0;
 	device->load = 0;
 	device->inc = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->inc = 1;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = -32123;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->load = 1;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 12345;
 	device->load = 1;
 	device->inc = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->reset = 1;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->reset = 0;
 	device->inc = 1;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->reset = 1;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->reset = 0;
 	device->load = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->reset = 1;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 0;
 	device->reset = 0;
 	device->load = 1;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->load = 0;
 	device->inc = 1;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 	device->in = 22222;
 	device->reset = 1;
 	device->inc = 0;
-	device->clk = 0; ++time_; device->eval(); // tick
+	tick(device);
 	output(device);
 
-	device->clk = 1; ++time_; device->eval(); // tock
+	tock(device);
 	output(device);
 
 

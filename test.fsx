@@ -22,9 +22,6 @@ let tst2cpp tstPath device =
   let mutable hasTime = false
   let mutable hasOutM = false
 
-  let tick () = sb.AppendLine("\tdevice->clk = 0; ++time_; device->eval(); // tick") |> ignore
-  let tock () = sb.AppendLine("\tdevice->clk = 1; ++time_; device->eval(); // tock") |> ignore
-
   for line in File.ReadLines(tstPath) do
     let line = line.Trim().TrimEnd([| ','; ';' |])
     match line.Split((null : char[]), StringSplitOptions.RemoveEmptyEntries) |> Array.toList with
@@ -81,12 +78,12 @@ let tst2cpp tstPath device =
         sb.AppendLine($"\tdevice->{var} = {value};") |> ignore
     | ["eval"] -> sb.AppendLine("\tdevice->eval();") |> ignore
     | ["output"] -> sb.AppendLine("\toutput(device);") |> ignore
-    | ["tick"] -> tick ()
-    | ["tock"] -> tock ()
+    | ["tick"] -> sb.AppendLine("\ttick(device);") |> ignore
+    | ["tock"] -> sb.AppendLine("\ttock(device);") |> ignore
     | ["tick,"; "output,"; "tock,"; "output"] ->
-        tick ()
+        sb.AppendLine("\ttick(device);") |> ignore
         sb.AppendLine("\toutput(device);") |> ignore
-        tock ()
+        sb.AppendLine("\ttock(device);") |> ignore
         sb.AppendLine("\toutput(device);") |> ignore
     | tokens -> raise (NotImplementedException($"%A{tokens}"))
 
@@ -95,6 +92,18 @@ let tst2cpp tstPath device =
   let timeFunctions =
     if hasTime then $$"""
 int time_ = 0;
+
+void tick({{ className }}* device) {
+	device->clk = 0;
+	++time_;
+	device->eval();
+}
+
+void tock({{ className }}* device) {
+	device->clk = 1;
+	++time_;
+	device->eval();
+}
 
 std::string fmt_time(int total_length) {
 	std::string s = ' ' + std::to_string(time_ / 2);
