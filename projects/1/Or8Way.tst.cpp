@@ -1,14 +1,6 @@
 #include "VOr8Way.h"
 
-int time_ = 0;
 
-std::string fmt_time(int total_length) {
-	std::string s = ' ' + std::to_string(time_ / 2);
-	if (time_ % 2 == 1)
-		s += '+';
-	s.append(total_length - s.length(), ' ');
-	return s;
-}
 
 void output(const VOr8Way* device) {
 	printf("|  %08b  | %01b |\n", device->in, device->out);

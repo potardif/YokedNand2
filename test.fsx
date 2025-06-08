@@ -19,6 +19,7 @@ let tst2cpp tstPath device =
     Vars = List()
   |}
   let sb = StringBuilder()
+  let mutable hasTime = false
   let mutable hasOutM = false
 
   let tick () = sb.AppendLine("\tdevice->clk = 0; ++time_; device->eval(); // tick") |> ignore
@@ -40,6 +41,7 @@ let tst2cpp tstPath device =
               output.Fmts.Add(" %01b ")
               output.Vars.Add($"device->{var}")
           | [| "time"; fmt |] ->
+              hasTime <- true
               let totalLength =
                 match fmt with
                 | "S1.3.1" -> 1 + 3 + 1
@@ -90,9 +92,20 @@ let tst2cpp tstPath device =
 
   let className = $"V{device}"
 
+  let timeFunctions =
+    if hasTime then $$"""int time_ = 0;
+
+std::string fmt_time(int total_length) {
+	std::string s = ' ' + std::to_string(time_ / 2);
+	if (time_ % 2 == 1)
+		s += '+';
+	s.append(total_length - s.length(), ' ');
+	return s;
+}"""
+    else ""
+
   let fmt_outM =
-    if hasOutM then
-      $$"""
+    if hasOutM then $$"""
 std::string fmt_outM(const {{ className }}* device) {
 	if (!device->writeM)
 		return "*******";
@@ -109,15 +122,7 @@ std::string fmt_outM(const {{ className }}* device) {
 
   $$"""#include "{{ className }}.h"
 
-int time_ = 0;
-
-std::string fmt_time(int total_length) {
-	std::string s = ' ' + std::to_string(time_ / 2);
-	if (time_ % 2 == 1)
-		s += '+';
-	s.append(total_length - s.length(), ' ');
-	return s;
-}
+{{ timeFunctions }}
 {{ fmt_outM }}
 void output(const {{ className }}* device) {
 	printf("|{{ String.Join("|", output.Fmts) }}|\n", {{ String.Join(", ", output.Vars) }});

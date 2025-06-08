@@ -1,14 +1,6 @@
 #include "VNand.h"
 
-int time_ = 0;
 
-std::string fmt_time(int total_length) {
-	std::string s = ' ' + std::to_string(time_ / 2);
-	if (time_ % 2 == 1)
-		s += '+';
-	s.append(total_length - s.length(), ' ');
-	return s;
-}
 
 void output(const VNand* device) {
 	printf("| %01b | %01b | %01b |\n", device->a, device->b, device->out);
