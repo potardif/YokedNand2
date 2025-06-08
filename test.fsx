@@ -19,6 +19,10 @@ let tst2cpp tstPath device =
     Vars = List()
   |}
   let sb = StringBuilder()
+  let mutable hasOutM = false
+
+  let tick () = sb.AppendLine("\tdevice->clk = 0; ++time_; device->eval(); // tick") |> ignore
+  let tock () = sb.AppendLine("\tdevice->clk = 1; ++time_; device->eval(); // tock") |> ignore
 
   for line in File.ReadLines(tstPath) do
     let line = line.Trim().TrimEnd([| ','; ';' |])
@@ -44,6 +48,11 @@ let tst2cpp tstPath device =
               output.Headers.Add(center "time" totalLength)
               output.Fmts.Add("%s")
               output.Vars.Add($"fmt_time({totalLength}).c_str()")
+          | [| "outM"; "D1.6.0" |] ->
+              hasOutM <- true
+              output.Headers.Add(center "outM" 7)
+              output.Fmts.Add("%s")
+              output.Vars.Add("fmt_outM(device).c_str()")
           | [| var; fmt |] ->
               let paddingChar =
                 match fmt.[0] with
@@ -70,11 +79,33 @@ let tst2cpp tstPath device =
         sb.AppendLine($"\tdevice->{var} = {value};") |> ignore
     | ["eval"] -> sb.AppendLine("\tdevice->eval();") |> ignore
     | ["output"] -> sb.AppendLine("\toutput(device);") |> ignore
-    | ["tick"] -> sb.AppendLine("\tdevice->clk = 0; ++time_; device->eval(); // tick") |> ignore
-    | ["tock"] -> sb.AppendLine("\tdevice->clk = 1; ++time_; device->eval(); // tock") |> ignore
+    | ["tick"] -> tick ()
+    | ["tock"] -> tock ()
+    | ["tick,"; "output,"; "tock,"; "output"] ->
+        tick ()
+        sb.AppendLine("\toutput(device);") |> ignore
+        tock ()
+        sb.AppendLine("\toutput(device);") |> ignore
     | tokens -> raise (NotImplementedException($"%A{tokens}"))
 
   let className = $"V{device}"
+
+  let fmt_outM =
+    if hasOutM then
+      $$"""
+std::string fmt_outM(const {{ className }}* device) {
+	if (!device->writeM)
+		return "*******";
+
+	std::string right = std::to_string(static_cast<int16_t>(device->outM));
+
+	std::string left;
+	left.append(7 - right.length(), ' ');
+
+	return left + right;
+}
+"""
+    else ""
 
   $$"""#include "{{ className }}.h"
 
@@ -87,7 +118,7 @@ std::string fmt_time(int total_length) {
 	s.append(total_length - s.length(), ' ');
 	return s;
 }
-
+{{ fmt_outM }}
 void output({{ className }}* device) {
 	printf("|{{ String.Join("|", output.Fmts) }}|\n", {{ String.Join(", ", output.Vars) }});
 }
@@ -155,15 +186,22 @@ let run exeName =
 
 let () =
   let getProjectFolder i = Path.Combine("projects", $"{i}")
-  for project in 1 .. 3 do
+  for project in [| 1; 2; 3; 5 |] do
     let projectFolder = getProjectFolder project
     for svPath in Directory.EnumerateFiles(projectFolder, "*.sv") do
       let device = Path.GetFileNameWithoutExtension(svPath)
 
       let tstPaths = List()
-      tstPaths.Add(Path.Combine(projectFolder, $"{device}.tst"))
-      if device = "ALU" then
-        tstPaths.Add(Path.Combine(projectFolder, $"ALU-basic.tst"))
+      match device with
+      | "ALU" ->
+          tstPaths.Add(Path.Combine(projectFolder, $"{device}.tst"))
+          tstPaths.Add(Path.Combine(projectFolder, $"ALU-basic.tst"))
+      | "CPU" ->
+          // CPU.tst is deliberately ignored for the moment because it is exactly the same test as
+          // CPU-external.tst, but it also tests the value of the D register which is a nonsense in
+          // my opinion because it is not exposed in the output pins.
+          tstPaths.Add(Path.Combine(projectFolder, $"CPU-external.tst"))
+      | _ -> tstPaths.Add(Path.Combine(projectFolder, $"{device}.tst"))
 
       for tstPath in tstPaths do
         let tstName = Path.GetFileNameWithoutExtension(tstPath)
