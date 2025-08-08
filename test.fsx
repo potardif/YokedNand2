@@ -220,7 +220,7 @@ let () =
           // my opinion because it is not exposed in the output pins. And you can't just expose it
           // in the output pins to pass the test, because the test seems to expect the value of D
           // before it even propagates to its output, which starts becoming a philosophical
-          // question: What is the value of a register if not its output?
+          // question: What is the value of a register if not its output pins?
           tstPaths.Add(Path.Combine(projectFolder, $"CPU-external.tst"))
       | _ -> tstPaths.Add(Path.Combine(projectFolder, $"{device}.tst"))
 
