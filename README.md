@@ -43,5 +43,5 @@ The rest of the files keep their
 [CC BY-NC-SA 3.0 license](https://creativecommons.org/licenses/by-nc-sa/3.0/) as specified on
 [https://www.nand2tetris.org/license](https://www.nand2tetris.org/license).
 
-For the sake of simplicity, I've chosen to also license all the files that I wrote under the CC
+For the sake of simplicity, I've also chosen to license all the files that I wrote under the CC
 BY-NC-SA 3.0 so that the whole repository is under the same license.
